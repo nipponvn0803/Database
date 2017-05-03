@@ -1,7 +1,12 @@
+
 <?php
-//include auth.php file on all secure pages
 include("auth.php");
 ?>
+<?php
+  require('db.php');
+
+ ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,6 +68,11 @@ include("auth.php");
   border-style: ridge;
   border-color: gray ;
   text-decoration: none;
+}
+
+#writenote
+{
+  display: none;
 }
 
 button
@@ -151,10 +161,7 @@ td#day_of_next_month
 
 </style>
 
-<?php
-  require('db.php');
 
- ?>
 
 <!-- Next we'll import a .js file that contains methods with
      which it is possible to do interesting operations with Date objects. -->
@@ -521,21 +528,27 @@ function calendar_day_clicked( td_element )
 
    var today = new Date();
 
-
    var clicked_day = new Date( calendar_to_show.year, calendar_to_show.month-1, td_element.textContent );
 
    var distance = today.get_distance_to( clicked_day ) ;
 
    document.getElementById("distance").innerHTML = "It is " +
           distance.days+ " days " + distance.months + " months "  + distance.years +  " years from today to " +
-          td_element.textContent + "/" + calendar_to_show.month + "/" + calendar_to_show.year + "." +
-          '<button id="makenote" onclick="MakeNote()" >Make Note</button>' ;
+          td_element.textContent + "/" + calendar_to_show.month + "/" + calendar_to_show.year + "." ;
 
+  document.getElementById('makenotebutton').innerHTML = '<button id="makenote" onclick=\"MakeNote( this )\" >Make Note</button>' ;
+
+  document.getElementById('test').value = clicked_day ;
+
+
+  document.getElementById('writenote').style.display = "none" ;
+  document.getElementById('makenotebutton').style.display = "inline" ;
 }
 
-function MakeNote()
+function MakeNote( td_element )
 {
-
+  document.getElementById('makenotebutton').style.display = "none" ;
+  document.getElementById('writenote').style.display = "inline" ;
 }
 </script>
 
@@ -558,8 +571,15 @@ function MakeNote()
 
       </div>
       <p id="distance"></p>
-      <p id="test"></p>
-        <a id="logout" href="logout.php">LOG OUT</a>
+      <p id="makenotebutton"></p>
+      <div id="writenote">
+          <?php require('action_page.php'); ?>
+      </div>
+      <br>
+      <br>
+      <br>
+      
+      <a id="logout" href="logout.php">Log Out</a>
 
    </div>
 
