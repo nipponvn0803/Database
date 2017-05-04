@@ -56,6 +56,7 @@ include("auth.php");
   font-size: 18px ;
   color: Black ;     /* text color on the button. */
   background-color: #0377A5 ;
+  margin-left: 100px ;
 }
 
 #logout
@@ -71,6 +72,11 @@ include("auth.php");
 }
 
 #writenote
+{
+  display: none;
+}
+
+#oldnote
 {
   display: none;
 }
@@ -539,9 +545,10 @@ function calendar_day_clicked( td_element )
   document.getElementById('makenotebutton').innerHTML = '<button id="makenote" onclick=\"MakeNote( this )\" >Make Note</button>' ;
 
   document.getElementById('test').value = clicked_day ;
-
+  document.getElementById('test1').value = clicked_day ;
 
   document.getElementById('writenote').style.display = "none" ;
+  document.getElementById('oldnote').style.display = "inline" ;
   document.getElementById('makenotebutton').style.display = "inline" ;
 }
 
@@ -549,6 +556,7 @@ function MakeNote( td_element )
 {
   document.getElementById('makenotebutton').style.display = "none" ;
   document.getElementById('writenote').style.display = "inline" ;
+
 }
 </script>
 
@@ -578,7 +586,10 @@ function MakeNote( td_element )
       <br>
       <br>
       <br>
-      
+      <div id="oldnote">
+      			 <?php require('show_old_note.php'); ?>
+      	 </div>
+
       <a id="logout" href="logout.php">Log Out</a>
 
    </div>
