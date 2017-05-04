@@ -591,7 +591,7 @@ function MakeNote( td_element )
       	 </div>
 
       <a id="logout" href="logout.php">Log Out</a>
-
+ <a href="project.docx"><h2>Project Document</h2></a>
    </div>
 
 
